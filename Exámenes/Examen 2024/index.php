@@ -21,12 +21,14 @@ if (!isset($_POST['login'])) {
 
     $nombre = $_POST['nombre'];
 
-    $sql = "SELECT nombre FROM jugador WHERE nombre = '$nombre'";
+    $sql = "SELECT nombre, login FROM jugador WHERE nombre = '$nombre'";
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
         $_SESSION['jugador'] = $nombre;
+        $_SESSION['log'] = $row['login'];
         header("Location: inicio.php");
         exit();
     } else {
